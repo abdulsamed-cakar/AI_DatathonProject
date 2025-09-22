@@ -2,7 +2,7 @@
 <p>   Bu proje, bir bitki hakkında aklınıza takılan her şeyi sorabileceğiniz bir yapay zeka asistanıdır. Karşılıklı soru-cevap şeklinde ilerleyen bir sohbet uygulamasıdır.
   Amacımız, bitki bakımı, bitki hastalıkları ve genel bitki sağlığı gibi konularda kullanıcılara hızlı ve güvenilir bir şekilde yardımcı olmaktır.</p>
 
-<p>Projeyi yaparken internetten bitki hastalıklarıyla ilgili bulduğumuz veri setini kendimiz eğittik, model üzerine yapay zeka  entegresi yaparak verilen cevapları güçlendirdik.</p>
+<p>Projeyi yaparken internetten bitki hastalıklarıyla ilgili bulduğumuz veri setini kendimiz eğittik, model üzerine yapay zeka  entegresi de yaparak verilen cevapları güçlendirdik.</p>
 
 <ul>
   <li>
