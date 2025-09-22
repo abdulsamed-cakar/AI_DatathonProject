@@ -20,17 +20,17 @@
 
 <ul>
   <li>
-    Python: Projenin backendi Python ile yazıldı. 
+    Python: Projenin backendi Python ile yazdık. 
   </li>
   <li>
-    Flask: Hafif ve esnek bir web çatısı. Kayıt, giriş ve sohbet gibi tüm web sayfalarını yönetmek için Flask'ı kullandım. Bu sayede, uygulamanın temel yapısını tek bir dosyada kurmak mümkün oldu.
+    Flask: Hafif ve esnek bir web çatısı. Kayıt, giriş ve sohbet gibi tüm web sayfalarını yönetmek için Flask'ı kullandık. Bu sayede, uygulamanın temel yapısını tek bir dosyada kurmak mümkün oldu.
   </li>
   <li>
     SQLite3: Kullanıcı verilerini (e-posta, şifre) ve tüm sohbet geçmişini (mesajlar, görseller, sağlık puanları) depolamak için kullanılan sunucusuz bir veritabanı. 
     Projenin tek dosya yapısına çok uygun çünkü ek bir veritabanı sunucusu kurulumu gerektirmiyor.
   </li>
   <li>
-    TensorFlow & Keras: Kendi bitki hastalığı teşhis modelimi eğitmek ve yüklemek için bu popüler makine öğrenimi kütüphanelerini kullandım. 
+    TensorFlow & Keras: Kendi bitki hastalığı teşhis modelimi eğitmek ve yüklemek için bu popüler makine öğrenimi kütüphanelerini kullandık. 
     Modelin hızlı bir şekilde çalışmasını ve bitki fotoğraflarını analiz etmesini sağladılar.
   </li>
   <li>
@@ -38,9 +38,11 @@
     Kendi modelimin bulgularını alarak daha detaylı ve doğal dilde yanıtlar üretmesini sağladı.
   </li>
   <li>
-    PIL (Pillow): Python'ın görsel işleme kütüphanesi. Kullanıcıların yüklediği görselleri işlemek için kullandım.
+    PIL (Pillow): Python'ın görsel işleme kütüphanesi. Kullanıcıların yüklediği görselleri işlemek için kullandık.
  </li>
 </ul>
+
+<p>➡️Web kısmında ise html css js kullandık.Kullanıcıya dinamik ve göze hitap eden bir arayüz tasarladık</p>
 
 <h4>Projeye Ait Görseller 🖼️</h4>
 
