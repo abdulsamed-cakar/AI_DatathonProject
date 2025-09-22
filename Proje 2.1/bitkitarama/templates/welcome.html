@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoş Geldiniz - Bitki Uzmanı</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <video autoplay muted loop id="video-background">
+        <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+        Tarayıcınız video etiketini desteklemiyor.
+    </video>
+    <div class="content-wrapper">
+        <div class="container" style="text-align:center;margin-top:100px;">
+            <h1 style="font-size:36px;">Hoş Geldin Bitkisever!</h1>
+            <p class="small" style="font-size:18px;">Senin için özel bir bitki analiz programı hazırladım.</p>
+            <div style="height:24px;"></div>
+            <a class="btn" href="{{ url_for('chat') }}">Sohbete Başla</a>
+        </div>
+    </div>
+</body>
+</html>

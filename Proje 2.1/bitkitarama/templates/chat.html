@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitki Uzmanı Sohbeti</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <video autoplay muted loop id="video-background">
+        <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+        Tarayıcınız video etiketini desteklemiyor.
+    </video>
+
+    <div class="content-wrapper">
+
+        <div class="menu-icon" onclick="toggleSidebar()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <div class="profile-card">
+                <h2 style="font-size:18px; margin-top:0;">{{ user_name }}</h2>
+                <p class="small" style="margin:0;">{{ user_email }}</p>
+            </div>
+            <a class="btn" href="{{ url_for('new_chat') }}" style="display:block;margin-bottom:8px">➕ Yeni Sohbet</a>
+            <h1 style="font-size:16px;">Sohbetler</h1>
+            {{ chats_html | safe }}
+            <div class="hr"></div>
+            <div class="card" style="margin-top:14px;text-align:center;">
+                <h1 style="font-size:16px">Bitki Sağlığı</h1>
+                <p class="small">Mevcut bitkinizin tahmini sağlık durumu:</p>
+                <div class="health-indicator health-indicator-{{ health_class }}"></div>
+            </div>
+            <div class="hr"></div>
+            <a class="btn secondary" href="{{ url_for('logout') }}" style="display:block">🚪 Çıkış</a>
+        </div>
+
+        <div class="overlay" onclick="toggleSidebar()"></div>
+
+        <div class="main-content" id="main-content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h1>Bitki Uzmanı</h1>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    {{ messages_html | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area" id="chat-input-area">
+            <form id="chatForm" method="post">
+                <div class="input-group">
+                    <div id="imagePreviewContainer">
+                        <img id="imagePreview" src="#" alt="Görsel Önizlemesi">
+                        <span id="previewMessage" class="small"></span>
+                        <button type="button" id="clearImage">x</button>
+                    </div>
+                    <div class="input-row">
+                        <div class="plus-button" onclick="toggleFileUploadDialog()">+</div>
+                        <input type="text" name="message" id="messageInput" placeholder="Bitkinle ilgili merak ettiklerini sor..." autocomplete="off" required>
+                        <input type="hidden" id="imageDataUri" name="imageDataUri">
+                        <button class="btn" type="submit" style="width: auto;">Gönder</button>
+                    </div>
+                </div>
+            </form>
+            <div class="file-upload-dialog" id="fileUploadDialog">
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <button onclick="document.getElementById('fileInput').click()">Dosyadan Seç</button>
+                <button onclick="takePhoto()">Kamerayı Kullan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        const messageInput = document.getElementById('messageInput');
+        const fileUploadDialog = document.getElementById('fileUploadDialog');
+        const imageDataUriInput = document.getElementById('imageDataUri');
+        const fileInput = document.getElementById('fileInput');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.querySelector('.overlay');
+        const mainContent = document.getElementById('main-content');
+        const chatInputArea = document.getElementById('chat-input-area');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewMessage = document.getElementById('previewMessage');
+        const clearImageBtn = document.getElementById('clearImage');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+            mainContent.classList.toggle('shifted');
+            chatInputArea.classList.toggle('shifted');
+        }
+
+        function toggleFileUploadDialog() {
+            fileUploadDialog.style.display = fileUploadDialog.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function showImagePreview(dataUri, sourceText) {
+            imagePreview.src = dataUri;
+            previewMessage.textContent = sourceText;
+            imagePreviewContainer.style.display = 'flex';
+            imageDataUriInput.value = dataUri;
+            messageInput.focus();
+        }
+        
+        function clearImage() {
+            imagePreviewContainer.style.display = 'none';
+            imagePreview.src = '#';
+            previewMessage.textContent = '';
+            imageDataUriInput.value = '';
+            messageInput.placeholder = "Bitkinle ilgili merak ettiklerini sor...";
+        }
+
+        fileInput.onchange = function() {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    showImagePreview(e.target.result, `Görsel: ${file.name}`);
+                    toggleFileUploadDialog();
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        clearImageBtn.onclick = clearImage;
+
+        function takePhoto() {
+            toggleFileUploadDialog();
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                alert('Tarayıcınız kamera kullanımını desteklemiyor.');
+                return;
+            }
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then(stream => {
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+                
+                video.onloadedmetadata = () => {
+                    setTimeout(() => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        const context = canvas.getContext('2d');
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        
+                        const dataUri = canvas.toDataURL('image/jpeg', 0.8); // Daha küçük boyut için jpeg
+                        showImagePreview(dataUri, 'Kameradan Çekildi');
+
+                        stream.getTracks().forEach(track => track.stop());
+                        video.remove();
+                    }, 500);
+                };
+
+                document.body.appendChild(video); // Video elemanını gizli olarak ekle
+                video.style.display = 'none';
+            })
+            .catch(err => {
+                console.error("Kamera erişimi reddedildi: ", err);
+                alert('Kamera erişimi reddedildi veya bir hata oluştu.');
+            });
+        }
+
+        // Sohbet başlığını düzenleme
+        function renameChat(chatId) {
+            const newTitle = prompt("Yeni sohbet başlığını girin:");
+            if (newTitle && newTitle.trim() !== '') {
+                window.location.href = `/rename_chat/${chatId}?new_title=${encodeURIComponent(newTitle)}`;
+            }
+        }
+
+        // Sohbeti silme
+        function deleteChat(chatId) {
+            if (confirm("Bu sohbeti silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.")) {
+                window.location.href = `/delete_chat/${chatId}`;
+            }
+        }
+        
+        // Auto-scroll to bottom of chat messages
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    </script>
+</body>
+</html>

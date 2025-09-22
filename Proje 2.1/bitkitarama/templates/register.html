@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - Bitki Uzmanı</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <video autoplay muted loop id="video-background">
+        <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+        Tarayıcınız video etiketini desteklemiyor.
+    </video>
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="card" style="max-width:600px;margin:40px auto">
+                <h1>Kayıt Ol</h1>
+                <form method="post">
+                    <label class="small">Adınız</label><br>
+                    <input name="name" placeholder="Ad Soyad" required><br><br>
+                    <label class="small">E-posta</label><br>
+                    <input name="email" placeholder="ornek@posta.com" required><br><br>
+                    <label class="small">Şifre</label><br>
+                    <input name="password" type="password" placeholder="•••••••" required><br><br>
+                    <button class="btn" type="submit">Hesap Oluştur</button>
+                    <a class="btn secondary" href="{{ url_for('login') }}" style="margin-left:8px">Girişe Dön</a>
+                </form>
+                <div class="hr"></div>
+                {% if msg %}
+                    {{ msg | safe }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
