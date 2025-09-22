@@ -1,19 +1,3 @@
-# -- coding: utf-8 --
-"""
-bitkitarama.py
-Tek dosya: Flask webapp + Gemini API
-Özellikler:
- - Kayıt / Giriş
- - Bitki analizi (görsel ve metin ile)
- - Sohbet (AI cevapları)
- - Bitki Sağlığı analizi (grafik)
- - Sohbet geçmişi
- - Sohbet ismini düzenleme ve silme
- - Yüklenen fotoğrafı sohbette görüntüleme
- - Görüntü önizlemesi
- - Kamera ile fotoğraf çekme
-"""
-
 import os
 import sqlite3
 import datetime
@@ -35,8 +19,8 @@ import numpy as np
 import tensorflow as tf
 from keras.models import load_model
 
-# Model dosyanızın yolu
-# plant-pathology klasörünü içerecek şekilde yolu güncelledik
+
+# plant-pathology klasörünü yolu 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'plant-pathology', 'plant_pathology_model.h5')
 
 # Modeli belleğe yükle
@@ -50,7 +34,6 @@ except Exception as e:
 # ---------- Gemini API ----------
 import google.generativeai as genai
 
-# API Anahtarınızı Buraya Ekleyin
 gemini_api_key = "AIzaSyAyT3BtJw5KNGKM7wxvv7L9tzRtwOi20yo"
 
 try:
@@ -72,10 +55,9 @@ UPLOAD_FOLDER = "uploads"
 # Flask uygulamasını, bulunduğu dizine göre başlatır
 app = Flask(__name__)
 app.secret_key = "bitkitarama_secret_v2"
-# UPLOAD_FOLDER yolunu tam olarak ayarlar
+
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, STATIC_DIR, UPLOAD_FOLDER)
 
-# Klasörlerin var olduğundan emin olun
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(os.path.join(app.root_path, "templates"), exist_ok=True)
 
@@ -163,7 +145,7 @@ def save_message(chat_id, sender, message, image_path=None, health_score=None):
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     ts = datetime.datetime.now().isoformat()
-    # image_path olarak sadece dosya adını kaydediyoruz
+    # image_path 
     c.execute("INSERT INTO messages (chat_id, sender, message, image_path, timestamp, health_score) VALUES (?,?,?,?,?,?)", (chat_id, sender, message, os.path.basename(image_path) if image_path else None, ts, health_score))
     c.execute("UPDATE chats SET last_updated = ? WHERE chat_id = ?", (ts, chat_id))
     conn.commit()
@@ -367,7 +349,7 @@ def select_chat(chat_id):
     session["current_chat_id"] = chat_id
     return redirect(url_for("chat"))
 
-# Sohbeti silme rotası
+# Sohbeti silme
 @app.route("/delete_chat/<int:chat_id>")
 def delete_chat(chat_id):
     email = session.get("user")
@@ -385,7 +367,7 @@ def delete_chat(chat_id):
 
     return redirect(url_for("chat"))
 
-# Sohbet başlığını değiştirme rotası
+# Sohbet başlığını değiştirme
 @app.route("/rename_chat/<int:chat_id>", methods=["GET"])
 def rename_chat(chat_id):
     email = session.get("user")
@@ -430,13 +412,10 @@ def chat():
                 
                 with open(image_path, "wb") as f:
                     f.write(image_bytes)
-
-                # ADIM 1: Kendi modelinizi çalıştırın
+                 
                 # predict_plant_disease, bitkiyi analiz eder ve bir metin yanıtı ile sağlık puanı döner.
                 model_response, health_score = predict_plant_disease(image_path)
-                
-                # ADIM 2: Kendi modelinizin yanıtını Gemini için bir isteme ekleyin.
-                # Bu, Gemini'ye neyi analiz etmesi gerektiğini söyler.
+              
                 prompt_for_gemini = f"""
                 Kullanıcının yüklediği bitki görselini kendi modelimle analiz ettim. Analiz sonucum şudur:
                 
@@ -457,12 +436,12 @@ def chat():
                 health_score = None
         
         else:
-            # Görsel yoksa, sadece metin tabanlı bir yanıt oluşturun
+            # Görsel yoksa, sadece metin tabanlı bir yanıt oluşturma
             chat_history = get_messages(chat_id)
             ai_response = generate_gemini_response(chat_history, message)
             health_score = analyze_plant_health(ai_response)
 
-        # Mesajları veritabanına kaydet
+        # Mesajları veritabanına kaydetme
         save_message(chat_id, "user", user_message, image_path)
         save_message(chat_id, "ai", ai_response, health_score=health_score)
 
