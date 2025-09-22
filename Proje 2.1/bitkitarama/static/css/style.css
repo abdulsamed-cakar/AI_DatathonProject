@@ -1,7 +1,6 @@
 :root{--bg:#0b0f14;--card:#0f1720;--muted:#9aa4b2;--brand:#00bcd4;--brand2:#0097a7;--line:#1f2937;--txt:#e6eef6}
 *{box-sizing:border-box}
 
-/* Video Arka Planı İçin CSS */
 #video-background {
     position: fixed;
     right: 0;
@@ -13,21 +12,20 @@
     z-index: -100;
     background-size: cover;
     overflow: hidden;
-    /* Parlaklığı kısmak için filtre */
-    filter: brightness(60%); /* %60 parlaklık */
+    filter: brightness(60%); 
 }
 
-/* Tüm içeriği sarmalayan ve videonun üzerinde durmasını sağlayan kısım */
+
 .content-wrapper {
-    position: absolute; /* Fixed yerine absolute, body'nin akışında kalır */
+    position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Diğer içeriğin videonun üstünde olmasını sağlar */
-    display: flex; /* İçerik düzeni için flex kullanabiliriz */
+    z-index: 1; 
+    display: flex; 
     flex-direction: column;
-    overflow: hidden; /* Main content içinde kaydırma çubuğu olacak */
+    overflow: hidden; 
 }
 
 body{
@@ -35,27 +33,24 @@ body{
     background:var(--bg);
     color:var(--txt);
     font-family:Inter,Segoe UI,Arial,sans-serif;
-    /* Video arka planı için kaydırma çubuklarını gizler */
     overflow: hidden; 
 }
 .container{max-width:1000px;margin:24px auto;padding:18px}
 
-/* Ana kart ve login/register kartları için şeffaflık ve blur efekti */
 .card{
-    background: rgba(15, 23, 32, 0.7); /* %70 opaklık */
-    border: 1px solid rgba(31, 41, 55, 0.5); /* Daha şeffaf border */
+    background: rgba(15, 23, 32, 0.7); 
+    border: 1px solid rgba(31, 41, 55, 0.5); 
     padding: 18px;
     border-radius: 12px;
-    backdrop-filter: blur(10px); /* Blur efekti */
-    -webkit-backdrop-filter: blur(10px); /* Safari desteği */
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
 }
 
 h1{margin:0 0 10px;font-size:22px}
-/* input ve textarea'ların arka planını biraz daha şeffaf yapabiliriz */
 input,textarea,select,button{
     border-radius:10px;
-    border:1px solid rgba(31, 41, 55, 0.5); /* Daha şeffaf border */
-    background:rgba(11, 18, 32, 0.6); /* Daha şeffaf arka plan */
+    border:1px solid rgba(31, 41, 55, 0.5); 
+    background:rgba(11, 18, 32, 0.6); 
     color:var(--txt);
     padding:10px;
     font-size:14px;
@@ -74,27 +69,27 @@ textarea{min-height:40px;resize:vertical;width:100%}
 .table th, .table td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
 .hr{height:1px;background:var(--line);margin:12px 0}
 
-/* Mesaj kutuları için şeffaflık ve blur efekti */
+
 .msg-user{
-    background: rgba(255, 255, 255, 0.1); /* Hafif şeffaf beyaz */
+    background: rgba(255, 255, 255, 0.1); 
     padding:10px;
     border-radius:15px;
     margin:8px 0;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Hafif beyaz kenarlık */
-    backdrop-filter: blur(15px); /* Daha güçlü blur efekti */
-    -webkit-backdrop-filter: blur(15px); /* Safari desteği */
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
 }
 .msg-ai{
-    background: rgba(255, 255, 255, 0.1); /* Hafif şeffaf beyaz */
+    background: rgba(255, 255, 255, 0.1); 
     padding:10px;
     border-radius:15px;
     margin:8px 0;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Hafif beyaz kenarlık */
-    backdrop-filter: blur(15px); /* Daha güçlü blur efekti */
-    -webkit-backdrop-filter: blur(15px); /* Safari desteği */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
 }
 
-/* Yeni Tasarım CSS */
+
 body {
     display: flex;
     flex-direction: column;
@@ -106,7 +101,7 @@ body {
     flex: 1;
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
-    position: relative; /* Sabit öğeleri korumak için */
+    position: relative; 
 }
 .main-content.shifted {
     transform: translateX(280px);
@@ -117,35 +112,32 @@ body {
     flex-direction: column;
     height: 100%;
     padding: 20px;
-    background: transparent; /* Arka planı şeffaf yaptık */
+    background: transparent; 
 }
 .chat-header {
     text-align: center;
     padding: 10px;
 }
-/* Sohbet mesajları alanı için tamamen şeffaf arka plan */
 .chat-messages{
     flex: 1;
     overflow-y: auto;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    padding-bottom: 120px; /* Konuşma çubuğu için boşluk */
-    background: transparent; /* Arka planı tamamen şeffaf yaptık */
+    padding-bottom: 120px; 
+    background: transparent; 
     border-radius: 12px;
-    border: none; /* Kenarlığı da kaldırıyoruz */
+    border: none; 
 }
 .chat-input-area{
     position: fixed;
-    bottom: 20px; /* Biraz yukarı çekildi */
+    bottom: 20px; 
     left: 0;
     right: 0;
-    background: transparent; /* Arka planı şeffaf yaptık */
+    background: transparent; 
     display: flex;
     justify-content: center;
-    transition: transform 0.3s ease-in-out; /* Kayma animasyonu */
-    /* Input alanı için de blur ekleyebiliriz, ancak daha ince bir ayar gerekebilir */
-    /* backdrop-filter: blur(8px); */ 
+    transition: transform 0.3s ease-in-out; 
 }
 .chat-input-area.shifted {
     transform: translateX(280px);
@@ -157,45 +149,44 @@ body {
     gap: 10px;
     align-items: center;
     padding: 0 10px;
-    flex-direction: column; /* Mobil görünüm için */
+    flex-direction: column; 
 }
-/* Input ve butonların da şeffaf ve hafif blur olması */
 .chat-input-area input{
     flex:1;
-    border-radius: 24px; /* Daha oval kenarlar */
-    padding: 16px 24px; /* Büyütüldü */
+    border-radius: 24px; 
+    padding: 16px 24px; 
     font-size: 16px;
-    background: rgba(11, 18, 32, 0.7); /* Input için hafif koyu ve şeffaf bir arka plan verdik */
+    background: rgba(11, 18, 32, 0.7); 
     border: 1px solid rgba(31, 41, 55, 0.5);
-    backdrop-filter: blur(10px); /* Blur efekti */
-    -webkit-backdrop-filter: blur(10px); /* Safari desteği */
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
 }
 .chat-input-area button{
     width: auto;
     border-radius: 24px;
     padding: 16px 24px;
-    background: rgba(0, 188, 212, 0.8); /* Marka rengi ve şeffaflık */
-    backdrop-filter: blur(10px); /* Blur efekti */
-    -webkit-backdrop-filter: blur(10px); /* Safari desteği */
+    background: rgba(0, 188, 212, 0.8); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
 }
 .chat-image{max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px;}
 .plus-button{
     font-size: 28px; font-weight: bold; width: 48px; height: 48px; line-height: 48px; text-align: center; border-radius: 50%; 
-    background: rgba(76, 175, 80, 0.8); /* Şeffaf arka plan */
+    background: rgba(76, 175, 80, 0.8); 
     color: white; cursor: pointer; user-select: none; position: relative;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
 .file-upload-dialog{
     display: none; position: absolute; bottom: 60px; left: 0; 
-    background: rgba(51, 51, 51, 0.8); /* Şeffaf arka plan */
+    background: rgba(51, 51, 51, 0.8); 
     padding: 10px; border-radius: 8px; z-index: 100;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
 .file-upload-dialog button{
     width: 100%; margin-bottom: 5px; 
-    background: rgba(85, 85, 85, 0.8); /* Şeffaf arka plan */
+    background: rgba(85, 85, 85, 0.8);
     border: none; color: white;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -204,7 +195,7 @@ body {
 .delete-icon{cursor:pointer;margin-left:auto;color:#ff5252;}
 .health-indicator {width: 24px; height: 24px; border-radius: 50%; margin: 0 5px; display: inline-block;}
 
-/* Mobil menü için yeni CSS kuralları */
+
 .menu-icon {
     display: block;
     position: fixed;
@@ -220,21 +211,20 @@ body {
     margin: 5px 0;
     transition: 0.4s;
 }
-/* Sidebar için şeffaflık ve blur efekti */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 280px;
-    background: rgba(15, 23, 32, 0.7); /* %70 opaklık */
+    background: rgba(15, 23, 32, 0.7); 
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
-    border-right: 1px solid rgba(31, 41, 55, 0.5); /* Şeffaf border */
+    border-right: 1px solid rgba(31, 41, 55, 0.5); 
     padding: 20px;
-    backdrop-filter: blur(15px); /* Daha güçlü blur efekti */
-    -webkit-backdrop-filter: blur(15px); /* Safari desteği */
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
 }
 .sidebar.open {
     transform: translateX(0);
@@ -257,18 +247,16 @@ body {
     z-index: 998;
     display: none;
 }
-/* Profil kartı için şeffaflık ve blur efekti */
 .profile-card {
-    background: rgba(21, 32, 51, 0.8); /* %80 opaklık */
+    background: rgba(21, 32, 51, 0.8); 
     color: var(--txt);
     padding: 18px;
     border-radius: 12px;
     margin-bottom: 12px;
-    backdrop-filter: blur(10px); /* Blur efekti */
-    -webkit-backdrop-filter: blur(10px); /* Safari desteği */
-    border: 1px solid rgba(31, 41, 55, 0.5); /* Hafif border */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgba(31, 41, 55, 0.5); 
 }
-/* Kullanıcı adını tamamen gizlemek için */
 .user-name-center {
     display: none !important; 
 }
@@ -278,7 +266,7 @@ body {
     gap: 10px;
     width: 100%;
     position: relative;
-    flex-direction: column; /* Değiştirildi */
+    flex-direction: column; 
 }
 .input-row {
     display: flex;
