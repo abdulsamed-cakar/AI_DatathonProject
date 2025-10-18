@@ -34,7 +34,7 @@ except Exception as e:
 # ---------- Gemini API ----------
 import google.generativeai as genai
 
-gemini_api_key = "AIzaSyAyT3BtJw5KNGKM7wxvv7L9tzRtwOi20yo"
+gemini_api_key = "Kendi API nizi yapıştırın."
 
 try:
     if not gemini_api_key or gemini_api_key == "GEMINI_API_KEY":
